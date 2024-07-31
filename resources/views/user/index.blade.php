@@ -40,7 +40,7 @@
     </div>
 
 <script>
-$(document).ready(function() {
+$(documento).ready(function() {
     @if(Session::has('success'))
         toastr.options = {
             "positionClass": "toast-bottom-right",

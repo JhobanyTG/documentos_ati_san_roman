@@ -19,7 +19,7 @@ class UserController extends Controller
             $users = User::all();
             return view('user.index')->with('users', $users);
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else {
             return redirect()->to('/');
         }
@@ -31,7 +31,7 @@ class UserController extends Controller
         if(auth()->user()->role == 'admin'){
             return view('auth.register');
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
         }
@@ -59,7 +59,7 @@ class UserController extends Controller
             $users = User::findOrFail($id);
             return view('user.show', compact('users'));
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
         }
@@ -76,7 +76,7 @@ class UserController extends Controller
             $users = User::findOrFail($id);
             return view('user.edit', compact('users'));
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
         }
@@ -102,7 +102,7 @@ class UserController extends Controller
             return redirect()->route('usuarios.index', $users->id)
                     ->with('success', 'Usuario actualizado exitosamente.');
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
         }
@@ -137,7 +137,7 @@ class UserController extends Controller
             return redirect()->route('usuarios.index')
             ->with('success', 'El usuario ha sido eliminado exitosamente.');
         } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
-            return redirect()->to('/documents');
+            return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
         }

@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Documento extends Model
 {
-    protected $table = 'documets';
+    protected $table = 'documentos';
     protected $fillable = ['titulo', 'descripcion', 'detalle', 'archivo'];
 
     // Relación con el modelo User

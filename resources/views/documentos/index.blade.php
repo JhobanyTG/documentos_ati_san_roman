@@ -21,7 +21,7 @@
 
     <script>
     // Verificar si existe el mensaje de éxito
-    $(document).ready(function() {
+    $(documento).ready(function() {
         @if(Session::has('success'))
             toastr.options = {
                 "positionClass": "toast-bottom-right",

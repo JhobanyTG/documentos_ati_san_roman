@@ -32,7 +32,7 @@
 		</div>
 			<ul class="nav">
 				<li class="nav-item active">
-					<a href="{{ url('documents') }}">
+					<a href="{{ url('documentos') }}">
 						<i class="fa fa-files-o"></i>
 						<span class="nav-text">Documentos</span>
 					</a>

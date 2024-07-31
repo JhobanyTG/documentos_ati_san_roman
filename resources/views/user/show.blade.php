@@ -36,7 +36,7 @@
         </div>
       </form>
       <div class="modal" tabindex="-1" role="dialog" id="confirmationModal">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog" role="documentoo">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirmar Eliminación</h5>
@@ -62,18 +62,18 @@
     }
 
     function deleteRecord() {
-        document.getElementById('deleteForm').submit();
+        documento.getElementById('deleteForm').submit();
     }
 </script>
 <script>
-    $(document).ready(function() {
+    $(documento).ready(function() {
         $('.btn-close, .btn-no').click(function() {
             $('#confirmationModal, #pdfModal').modal('hide');
         });
     });
 </script>
 <script>
-$(document).ready(function() {
+$(documento).ready(function() {
     @if(Session::has('success'))
         toastr.options = {
             "positionClass": "toast-bottom-right",

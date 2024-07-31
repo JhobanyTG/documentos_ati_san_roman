@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\DocumentosController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -40,8 +40,8 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::middleware(['auth'])->group(function () {
     // Otras rutas protegidas por autenticación...
 
-    // Ruta a la vista documents.index
-    Route::get('/documents', [DocumentsController::class, 'index'])->name('documents.index');
+    // Ruta a la vista documentos.index
+    Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index');
 
 
 

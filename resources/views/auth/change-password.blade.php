@@ -50,7 +50,7 @@
 
                             <div class="form-group row mb-0 mt-3">
                                 <div class="col-md-8 offset-md-4 d-flex justify-content-between">
-                                    <a href="{{ route('documents.index') }}" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
+                                    <a href="{{ route('documentos.index') }}" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</a>
                                     <button type="submit" class="btn btn-success">
                                     <i class="fa fa-floppy-o" aria-hidden="true"></i> {{ __('Cambiar Contraseña') }}
                                     </button>

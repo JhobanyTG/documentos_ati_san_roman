@@ -19,7 +19,7 @@ class AuthController extends Controller
         // Lógica de inicio de sesión
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/documents');
+            return redirect()->intended('/documentos');
         } else {
             return redirect()->back()->withErrors(['email' => 'Credenciales incorrectas']);
         }
@@ -42,7 +42,7 @@ class AuthController extends Controller
         $user = Auth::user();
         if (Hash::check($request->current_password, $user->password)) {
             $user->update(['password' => Hash::make($request->new_password)]);
-            return redirect()->route('documents.index')->with('success', 'Contraseña cambiada con éxito');
+            return redirect()->route('documentos.index')->with('success', 'Contraseña cambiada con éxito');
         } else {
             return redirect()->back()->withErrors(['current_password' => 'La contraseña actual es incorrecta']);
         }
