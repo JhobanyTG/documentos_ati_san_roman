@@ -2,11 +2,11 @@
 
 # Levantamiento local
 
-composer install
-php artisan storage:link
-php artisan migrate
-php artisan db:seed
-php artisan serve
+- composer install
+1. php artisan storage:link
+2. php artisan migrate
+3. php artisan db:seed
+4. php artisan serve
 
-User: atisanroman@gmail.com
-Pass: atisanroman2024
+- User: atisanroman@gmail.com
+- Pass: atisanroman2024
