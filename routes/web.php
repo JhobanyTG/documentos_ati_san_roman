@@ -41,7 +41,12 @@ Route::middleware(['auth'])->group(function () {
     // Otras rutas protegidas por autenticación...
 
     // Ruta a la vista documentos.index
-    Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index');
+    // Route::get('/documentos', [DocumentosController::class, 'index'])->name('documentos.index');
+    // Route::get('/documentos/create', [DocumentosController::class, 'create'])->name('documentos.create');
+    // Route::get('/documentos/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
+    // Route::post('documentos', [DocumentosController::class, 'store'])->name('documentos.store');
+
+    Route::resource('documentos', DocumentosController::class);
 
 
 
