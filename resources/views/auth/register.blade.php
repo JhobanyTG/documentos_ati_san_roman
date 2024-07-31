@@ -18,7 +18,7 @@
                 <div class="col">
                     <img class="logo" src="images/logo/logo.png">
                 </div>
-                <h2 class="fw-bold nombre_proyecto">ATI SAN ROMÁN<</h2>
+                <h2 class="fw-bold nombre_proyecto">ATI SAN ROMÁN</h2>
                 <!-- Register-->
                 <form action="" method="POST">
                     @csrf

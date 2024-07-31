@@ -24,7 +24,6 @@ class DocumentosController extends Controller
                 if ($searchTerm) {
                     $query->where(function ($query) use ($searchTerm) {
                         $query->where('titulo', 'like', '%' . $searchTerm . '%')
-                            ->orWhere('detalles', 'like', '%' . $searchTerm . '%')
                             ->orWhere('descripcion', 'like', '%' . $searchTerm . '%');
                     });
                 }
@@ -69,7 +68,6 @@ class DocumentosController extends Controller
         // Validar los datos del formulario
         $request->validate([
             'titulo' => 'required|string|max:255',
-            'detalles' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'archivo' => [
                     'required',
@@ -95,7 +93,6 @@ class DocumentosController extends Controller
             $documento = new Documento();
             $documento->user_id = Auth::id();
             $documento->titulo = $request->input('titulo');
-            $documento->detalles = $request->input('detalles');
             $documento->descripcion = $request->input('descripcion');
             $documento->archivo = $archivoRuta;
             $documento->save();
@@ -125,7 +122,6 @@ class DocumentosController extends Controller
 
         $request->validate([
             'titulo' => 'required|max:255',
-            'detalles' => 'required|max:255',
             'descripcion' => 'required|string',
             'archivo' => [
                 'nullable',
@@ -149,7 +145,6 @@ class DocumentosController extends Controller
         }
 
         $documento->titulo = $request->input('titulo');
-        $documento->detalles = $request->input('detalles');
         $documento->descripcion = $request->input('descripcion');
         $documento->save();
 

@@ -49,10 +49,6 @@
                         <input type="text" id="titulo" name="titulo" class="form-control" value="{{ old('titulo', $documento->titulo) }}">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="detalles">Detalles</label>
-                        <input type="text" id="detalles" name="detalles" class="form-control" value="{{ old('detalles', $documento->detalles) }}">
-                    </div>
-                    <div class="form-group mt-3">
                         <label for="descripcion">Descripción</label>
                         <textarea id="descripcion" name="descripcion" class="form-control">{{ old('descripcion', $documento->descripcion) }}</textarea>
                     </div>
@@ -73,19 +69,22 @@
         }
     </script>
     <script>
-        function showConfirmationModal() {
-            $('#confirmationModal').modal('show');
-        }
-
-        function deleteRecord() {
-            document.getElementById('deleteForm').submit();
-        }
-    </script>
-    <script>
         $(document).ready(function() {
             $('.btn-close, .btn-no').click(function() {
                 $('#confirmationModal, #pdfModal').modal('hide');
             });
+        });
+    </script>
+    <script>
+        document.getElementById('archivo').addEventListener('change', function(e) {
+            var fileName = '';
+            if (this.files && this.files.length > 0) {
+                fileName = this.files[0].name;
+            }
+            var nombreArchivoElement = document.querySelector('.nombre_archivo');
+            if (nombreArchivoElement) {
+                nombreArchivoElement.textContent = fileName;
+            }
         });
     </script>
 @stop

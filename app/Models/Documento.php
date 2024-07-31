@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Documento extends Model
 {
     protected $table = 'documentos';
-    protected $fillable = ['titulo', 'descripcion', 'detalle', 'archivo'];
+    protected $fillable = ['titulo', 'descripcion', 'archivo'];
 
     // Relación con el modelo User
     // public function user()

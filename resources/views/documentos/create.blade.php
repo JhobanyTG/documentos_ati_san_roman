@@ -30,10 +30,6 @@
                 <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Ingrese el título" value="{{ old('titulo') }}" required>
             </div>
             <div class="form-group mb-2">
-              <label for="detalles" class="form-label">Detalles:</label>
-              <input type="text" class="form-control" name="detalles" id="detalles" placeholder="Ingrese detalles" value="{{ old('detalles') }}" required>
-            </div>
-            <div class="form-group mb-2">
               <label for="descripcion" class="form-label">Descripción:</label>
               <textarea class="form-control" name="descripcion" id="descripcion" rows="4" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
             </div>

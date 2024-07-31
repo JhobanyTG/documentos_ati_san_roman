@@ -13,8 +13,7 @@
                     <tr role="row">
                         <th class="col-1">Imagen</th>
                         <th class="text-center col-2">Titulo</th>
-                        <th class="text-center col-2">Detalle</th>
-                        <th class="text-center col-1">Descripcion</th>
+                        <th class="text-center col-5">Descripcion</th>
                         <th class="text-center col-2">Fecha y Hora</th>
                         <th class="text-center col-2">Acciones</th>
                     </tr>
@@ -32,7 +31,6 @@
                                 </div>
                             </td>
                             <td class="text-center">{{ $documento->titulo }}</td>
-                            <td class="text-center">{{ $documento->detalles }}</td>
                             <td class="text-center">{{ $documento->descripcion }}</td>
                             <td class="text-center">{{ $documento->created_at->format('Y-m-d H:i') }}</td>
                             <td class="text-center">
