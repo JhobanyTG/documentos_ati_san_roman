@@ -8,14 +8,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class DocumentosController extends Controller
 {
     public function index(Request $request)
     {
         if ($user = auth()->user()) {
-            $query = Documento::query(); // Cambié Taplicacion a Documento
-
+            $query = Documento::query();
             $searchTerm = $request->input('q');
             $fecha = $request->input('fecha');
             $filtroAnio = $request->input('anio');
@@ -152,19 +152,35 @@ class DocumentosController extends Controller
     }
 
     // Método para eliminar un documento
+    // public function destroy($id)
+    // {
+    //     $documento = Documento::findOrFail($id);
+
+    //     // Eliminar el archivo
+    //     if (Storage::exists($documento->archivo)) {
+    //         Storage::delete($documento->archivo);
+    //     }
+
+    //     // Eliminar el registro en la base de datos
+    //     $documento->delete();
+
+    //     Session::flash('success', 'El documento ha sido eliminado exitosamente.');
+    //     return redirect()->route('documentos.index');
+    // }
     public function destroy($id)
     {
-        $documento = Documento::findOrFail($id);
+        if (auth()->user()) {
+            $documento = Documento::findOrFail($id);
+            if ($documento->archivo) {
+                Storage::delete('public/' . $documento->archivo);
+            }
+            $documento->delete();
 
-        // Eliminar el archivo
-        if (Storage::exists($documento->archivo)) {
-            Storage::delete($documento->archivo);
+            return redirect()->route('documentos.index')
+                ->with('success', 'El registro ha sido eliminado exitosamente.');
+        } else {
+            return redirect()->to('/');
         }
-
-        // Eliminar el registro en la base de datos
-        $documento->delete();
-
-        Session::flash('success', 'El documento ha sido eliminado exitosamente.');
-        return redirect()->route('documentos.index');
     }
+
 }
