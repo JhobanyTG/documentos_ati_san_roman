@@ -13,7 +13,7 @@
                         <div class="col-md-12 d-flex justify-content-center">
                             <img class="img_file" src="{{ asset('images/icons/pdf.png') }}" />
                         </div>
-                        <div class="col-md-12 d-flex justify-content-center">
+                        <div class="col-md-12 d-flex justify-content-center pt-serif-regular mt-2">
                             <p class="nombre_archivo text-center" data-original-name="{{ basename($documento->archivo) }}">{{ basename($documento->archivo) }}</p>
                         </div>
                         <div class="col-md-12 container-input">
@@ -23,10 +23,10 @@
                                 <span class="iborrainputfile">Reemplazar archivo</span>
                             </label>
                         </div>
-                        <div class="col-md-12 container-input">
+                        <div class="col-md-12 container-input pt-serif-regular">
                             <a href="#" class="btn btn-success" onclick="openPdfModal()"><i class="fa fa-eye" aria-hidden="true"></i> Visualizar Archivo Actual</a>
                         </div>
-                        <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+                        <div class="modal fade pt-serif-regular" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -43,14 +43,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-8 pt-serif-regular">
                     <div class="form-group mt-3">
                         <label for="titulo">Título</label>
                         <input type="text" id="titulo" name="titulo" class="form-control" value="{{ old('titulo', $documento->titulo) }}">
                     </div>
                     <div class="form-group mt-3">
                         <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" class="form-control">{{ old('descripcion', $documento->descripcion) }}</textarea>
+                        <textarea id="descripcion" name="descripcion" rows="5" class="form-control">{{ old('descripcion', $documento->descripcion) }}</textarea>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <a href="{{ route('documentos.index') }}" class="btn btn-secondary btn-cancel"><i class="fa fa-arrow-left" aria-hidden="true"></i> Volver</a>
@@ -71,7 +71,7 @@
     <script>
         $(document).ready(function() {
             $('.btn-close, .btn-no').click(function() {
-                $('#confirmationModal, #pdfModal').modal('hide');
+                $('#pdfModal').modal('hide');
             });
         });
     </script>

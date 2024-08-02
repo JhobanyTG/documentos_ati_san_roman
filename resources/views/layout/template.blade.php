@@ -68,7 +68,7 @@
 					<i class="fa fa-bars fa-2x" aria-hidden="true"></i>
 				</div>
 			</div>
-			<div class="header-right">
+			<div class="header-right pt-serif-bold">
 				<div class="profile" id="profile-div">
 					<img src="{{ asset('images/logo/avatar.png') }}" alt="Avatar">
 					<p>{{ auth()->user()->name }}<span>{{ auth()->user()->role }}</span></p>
@@ -77,7 +77,7 @@
 			</div>
 		</header>
 		<div class="border-dark border-bottom mb-2">
-			<h4>
+			<h4 class="pt-serif-bold">
 				@yield('title')
 			</h4>
 		</div>

@@ -9,7 +9,7 @@
     <div class="card-body mt-3 p-2">
         <div id="content_ta_wrapper" class="dataTables_wrapper">
             <div class="table-responsive">
-                <table id="content_ta" class="table table-striped mt-4 table-hover custom-table" role="grid" aria-describedby="content_ta_info">
+                <table id="content_ta" class="table table-striped mt-4 table-hover custom-table pt-serif-regular" role="grid" aria-describedby="content_ta_info">
                     <thead>
                         <tr role="row">
                             <th class="d-none">Fecha</th>

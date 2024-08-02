@@ -24,14 +24,14 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9">
+          <div class="col-md-9 pt-serif-regular">
             <div class="form-group mb-2">
                 <label for="titulo" class="form-label">Título:</label>
                 <input type="text" class="form-control" name="titulo" id="titulo" placeholder="Ingrese el título" value="{{ old('titulo') }}" required>
             </div>
             <div class="form-group mb-2">
               <label for="descripcion" class="form-label">Descripción:</label>
-              <textarea class="form-control" name="descripcion" id="descripcion" rows="4" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
+              <textarea class="form-control" name="descripcion" id="descripcion" rows="5" placeholder="Ingrese la descripción" required>{{ old('descripcion') }}</textarea>
             </div>
             <div class="col-md-12 col-12 mb-2 d-flex align-items-end justify-content-end">
               <a href="{{ url('documentos') }}" class="btn btn-warning btn-cancel"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Cancelar</a>

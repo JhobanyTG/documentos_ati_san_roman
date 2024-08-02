@@ -4,6 +4,7 @@
     --color-principal: #340bc7;
     --color-principal-hover: #0321a3;
     --color-secundario: #0c0928;
+    --color-secundario-hover: #070041;
     --color-terciario: #f5e519;
     --color-rojo: #ff0331;
     --color-rojo-hover: #a00821;
@@ -13,6 +14,20 @@
     --color-success: #037672;
     --color-table-linea: #dee2e6;
     --color-table-linea-2: #6c757d;
+}
+
+.pt-serif-bold {
+    font-family: "PT Serif", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 16px;
+}
+
+.pt-serif-regular {
+    font-family: "PT Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
 }
 
 body {
@@ -140,7 +155,7 @@ body {
 }
 
 .sidebar-closed .logo img {
-    width: 50px;
+    width: 40px;
     height: 50px;
     margin-right: 0;
 }
@@ -529,18 +544,89 @@ header .profile img {
     overflow: hidden;
 }
 
+/* IMAGEN DE TABLA INDEX */
+
+/* @media (max-width: 1359px) {
+    .previwe-pdf {
+        display: none;
+    }
+} */
+/* @media (max-width: 1359px) {
+    .imagen_title_index {
+        display: none;
+    }
+} */
+
+.img_file_pdf {
+    display: none;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+}
+
+.centered-img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (min-width: 1360px) {
+    .img_file_pdf {
+        display: none;
+    }
+    .previwe-pdf {
+        display: block;
+    }
+}
+
 @media (max-width: 1359px) {
     .previwe-pdf {
         display: none;
     }
-}
-@media (max-width: 1359px) {
-    .imagen_title_index {
-        display: none;
+    .img_file_pdf {
+        display: block;
     }
 }
 
+.border-table-row-final{
+    border-top: 4px;
+    border-bottom-color: var(--color-secundario) !important;
+}
+
+@media (min-width: 768px) {
+    /* BORDER TABLE */
+    .border-table{
+        border-color: var(--color-secundario) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* TAMANO ICONO PDF */
+    .img_file_pdf {
+        display: block;
+        height: 60px;
+        width: 60px;
+    }
+    /* BORDER TABLE */
+    .border-table{
+        border-color: none;
+    }
+
+    /* BORDER TABLE FINAL */
+    .border-table-row-final{
+        padding-bottom: 1em !important;
+    }
+}
+
+/* logo layout */
 .img_file {
     height: 100%;
     width: 40%;
+}
+
+
+
+/* DESCRIPCION */
+.expand-description, .collapse-description {
+    color: var(--color-icono-eye);
+    cursor: pointer;
 }
