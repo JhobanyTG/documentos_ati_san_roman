@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
+
 
 class DocumentosController extends Controller
 {
@@ -16,11 +18,14 @@ class DocumentosController extends Controller
     {
         if ($user = auth()->user()) {
             $query = Documento::query();
+
             $searchTerm = $request->input('q');
             $fecha = $request->input('fecha');
             $filtroAnio = $request->input('anio');
+            $filtroMes = $request->input('mes', []); // Inicializar como array vacío si no hay valor
 
-            if ($searchTerm || $fecha || $filtroAnio) {
+            // Aplicar filtros de búsqueda
+            if ($searchTerm || $fecha || $filtroAnio || $filtroMes) {
                 if ($searchTerm) {
                     $query->where(function ($query) use ($searchTerm) {
                         $query->where('titulo', 'like', '%' . $searchTerm . '%')
@@ -31,15 +36,22 @@ class DocumentosController extends Controller
                 if ($fecha) {
                     $query->whereDate('created_at', $fecha);
                 }
+
                 if ($filtroAnio) {
                     $query->whereYear('created_at', $filtroAnio);
+                }
+
+                if ($filtroMes && is_array($filtroMes) && !empty($filtroMes)) {
+                    // Usar whereIn para manejar múltiples meses
+                    $query->whereIn(DB::raw('MONTH(created_at)'), $filtroMes);
                 }
             }
 
             $query->orderByDesc('created_at');
             $documentos = $query->paginate(5);
-            $documentos->appends(['q' => $searchTerm, 'fecha' => $fecha, 'anio' => $filtroAnio]);
+            $documentos->appends(['q' => $searchTerm, 'fecha' => $fecha, 'anio' => $filtroAnio, 'mes' => $filtroMes]);
 
+            // Obtener años disponibles para el filtro
             $availableYears = Documento::distinct()
                 ->orderByDesc('created_at')
                 ->pluck('created_at')
@@ -48,7 +60,16 @@ class DocumentosController extends Controller
                 })
                 ->unique();
 
-            return view('documentos.index', compact('documentos', 'searchTerm', 'fecha', 'availableYears', 'filtroAnio'));
+            // Obtener meses disponibles para el filtro en el año seleccionado
+            $availableMonths = [];
+            if ($filtroAnio) {
+                $availableMonths = Documento::selectRaw('MONTH(created_at) as month')
+                    ->whereYear('created_at', $filtroAnio)
+                    ->groupBy('month')
+                    ->pluck('month');
+            }
+
+            return view('documentos.index', compact('documentos', 'searchTerm', 'fecha', 'availableYears', 'availableMonths', 'filtroAnio', 'filtroMes'));
         } else {
             return redirect()->to('/');
         }
@@ -88,7 +109,7 @@ class DocumentosController extends Controller
                     ->withErrors(['archivo' => 'El archivo con ese nombre ya existe. Por favor, elige otro archivo diferente.'])
                     ->withInput();
             }
-    
+
             // Crear el nuevo documento
             $documento = new Documento();
             $documento->user_id = Auth::id();
@@ -96,7 +117,7 @@ class DocumentosController extends Controller
             $documento->descripcion = $request->input('descripcion');
             $documento->archivo = $archivoRuta;
             $documento->save();
-    
+
             Session::flash('success', 'El documento ha sido creado exitosamente.');
             return redirect()->route('documentos.index');
         } catch (\Exception $e) {
