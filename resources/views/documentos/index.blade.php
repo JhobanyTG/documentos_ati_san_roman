@@ -15,23 +15,26 @@
                     <i class="fa fa-times m-4" style="color: red;" aria-hidden="true"></i>
                 </a>
             @endif
+            @if ($filtroAnio)
+                <input type="hidden" name="anio" value="{{ $filtroAnio }}">
+            @endif
+            @if (!empty($filtroMes))
+                @foreach ($filtroMes as $mes)
+                    <input type="hidden" name="mes[]" value="{{ $mes }}">
+                @endforeach
+            @endif
             <button class="btn btn-primary" type="submit">Buscar</button>
         </div>
     </form>
-
     @if ($searchTerm || $filtroAnio || !empty($filtroMes))
         <p>
             Resultados de búsqueda de:
-            @if ($searchTerm)
-                @if ($filtroAnio || $filtroMes) y @endif
-                <strong>Término: {{ $searchTerm }}</strong>
-            @endif
             @if ($filtroAnio)
-                @if ($searchTerm || $filtroMes) y @endif
+                @if ($searchTerm || $filtroMes) @endif
                 <strong>Año: {{ $filtroAnio }}</strong>
             @endif
             @if ($filtroMes)
-                @if ($filtroAnio || $searchTerm) y @endif
+                @if ($filtroAnio || $searchTerm), @endif
                 <strong>Mes:
                     @php
                         $mesesEnEspanol = [
@@ -52,9 +55,82 @@
                     {{ implode(', ', array_map(fn($mes) => $mesesEnEspanol[$mes] ?? $mes, $filtroMes)) }}
                 </strong>
             @endif
+            @if ($searchTerm)
+                @if ($filtroAnio || $filtroMes) y @endif
+                <strong>Término: {{ $searchTerm }}</strong>
+            @endif
         </p>
     @endif
     <div class="row">
+        <!-- Columna del filtro -->
+        <div class="col-md-2">
+            <div class="mb-3">
+                <h4>Listar</h4>
+                <div class="row">
+                    <div class="col-12">
+                        <form action="{{ route('documentos.index') }}" method="GET" class="d-inline">
+                            <button type="submit" class="btn btn-block w-100 {{ !$filtroAnio ? 'btn-dark' : 'btn-light' }}">
+                                Todos
+                            </button>
+                        </form>
+                        @foreach ($availableYears as $year)
+                            <form action="{{ route('documentos.index') }}" method="GET" class="d-inline">
+                                <input type="hidden" name="anio" value="{{ $year }}">
+                                <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
+                                    {{ $year }}
+                                </button>
+                                <input type="hidden" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
+                            </form>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            <!-- Filtros de Meses -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>Filtros</h4>
+                    <div class="row">
+                        <div class="col-12">
+                            <form action="{{ route('documentos.index') }}" method="GET" id="filtroForm">
+                                <div class="input-group mb-3">
+                                    @if ($filtroAnio)
+                                        @php
+                                            $mesesEnEspanol = [
+                                                1 => 'Enero',
+                                                2 => 'Febrero',
+                                                3 => 'Marzo',
+                                                4 => 'Abril',
+                                                5 => 'Mayo',
+                                                6 => 'Junio',
+                                                7 => 'Julio',
+                                                8 => 'Agosto',
+                                                9 => 'Septiembre',
+                                                10 => 'Octubre',
+                                                11 => 'Noviembre',
+                                                12 => 'Diciembre'
+                                            ];
+                                        @endphp
+                                        @foreach ($availableMonths as $month)
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input m-1" name="mes[]" id="mes{{ $month }}" value="{{ $month }}" {{ in_array($month, $filtroMes) ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="mes{{ $month }}">{{ $mesesEnEspanol[$month] }}</label>
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <p>Selecciona un año para filtrar los meses.</p>
+                                    @endif
+                                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
+                                    <input type="hidden" name="q" value="{{ $searchTerm }}">
+                                    <div style="display: block; margin-bottom: 10px; width: 100%;">
+                                        <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-10">
             <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
@@ -190,78 +266,17 @@
                 </div>
             </div>
         </div>
-        <!-- Columna del filtro -->
-        <div class="col-md-2">
-            <div class="mb-3">
-                <h4>Listar</h4>
-                <div class="row">
-                    <div class="col-12">
-                        <form action="{{ route('documentos.index') }}" method="GET" class="d-inline">
-                            <button type="submit" class="btn btn-block w-100 {{ !$filtroAnio ? 'btn-dark' : 'btn-light' }}">
-                                Todos
-                            </button>
-                        </form>
-                        @foreach ($availableYears as $year)
-                            <form action="{{ route('documentos.index') }}" method="GET" class="d-inline">
-                                <input type="hidden" name="anio" value="{{ $year }}">
-                                <button type="submit" class="btn btn-block w-100 {{ $filtroAnio == $year ? 'btn-dark' : 'btn-light' }}">
-                                    {{ $year }}
-                                </button>
-                                <input type="hidden" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
-                            </form>
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-            <!-- Filtros de Meses -->
-            <div class="row mt-4">
-                <div class="col-12">
-                    <h4>Filtros</h4>
-                    <div class="row">
-                        <div class="col-12">
-                            <form action="{{ route('documentos.index') }}" method="GET" id="filtroForm">
-                                <div class="input-group mb-3">
-                                    @if ($filtroAnio)
-                                        @php
-                                            $mesesEnEspanol = [
-                                                1 => 'Enero',
-                                                2 => 'Febrero',
-                                                3 => 'Marzo',
-                                                4 => 'Abril',
-                                                5 => 'Mayo',
-                                                6 => 'Junio',
-                                                7 => 'Julio',
-                                                8 => 'Agosto',
-                                                9 => 'Septiembre',
-                                                10 => 'Octubre',
-                                                11 => 'Noviembre',
-                                                12 => 'Diciembre'
-                                            ];
-                                        @endphp
-                                        @foreach ($availableMonths as $month)
-                                            <div class="form-check">
-                                                <input type="checkbox" class="form-check-input m-1" name="mes[]" id="mes{{ $month }}" value="{{ $month }}" {{ in_array($month, $filtroMes) ? 'checked' : '' }}>
-                                                <label class="form-check-label" for="mes{{ $month }}">{{ $mesesEnEspanol[$month] }}</label>
-                                            </div>
-                                        @endforeach
-                                    @else
-                                        <p>Selecciona un año para filtrar los meses.</p>
-                                    @endif
-                                    <input type="hidden" name="anio" value="{{ $filtroAnio }}">
-                                    <input type="hidden" name="q" value="{{ $searchTerm }}">
-                                    <div style="display: block; margin-bottom: 10px; width: 100%;">
-                                        <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div class="d-flex justify-content-center mt-4">
-        {{ $documentos->links() }}
+        {{ $documentos->links('pagination.custom') }}
+    </div>
+    <div class="text-center">
+        @if ($documentos->count() > 1)
+            Mostrando ítems {{ $documentos->firstItem() }}-{{ $documentos->lastItem() }} de {{ $documentos->total() }}
+        @else
+            Mostrando ítem {{ $documentos->firstItem() }} de {{ $documentos->total() }}
+        @endif
     </div>
 </div>
 
