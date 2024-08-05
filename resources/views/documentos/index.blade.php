@@ -8,7 +8,7 @@
         <a href="{{ route('documentos.create') }}" class="btn btn-agregar pt-serif-regular"><i class="fa fa-plus" aria-hidden="true"></i> Registrar</a>
     </div>
     <form action="{{ route('documentos.index') }}" method="GET" class="mb-3">
-        <div class="input-group mb-3">
+        <div class="buscador input-group mb-3">
             <input type="text" class="form-control" placeholder="Buscar..." name="q" value="{{ $searchTerm }}">
             @if ($filtroAnio || $searchTerm || !empty($filtroMes))
                 <a class="border border-2" href="{{ route('documentos.index') }}">
@@ -23,11 +23,11 @@
                     <input type="hidden" name="mes[]" value="{{ $mes }}">
                 @endforeach
             @endif
-            <button class="btn btn-primary" type="submit">Buscar</button>
+            <button class="btn btn-custom" type="submit">Buscar</button>
         </div>
     </form>
     @if ($searchTerm || $filtroAnio || !empty($filtroMes))
-        <p>
+        <p class="resultado-buscador">
             Resultados de búsqueda de:
             @if ($filtroAnio)
                 @if ($searchTerm || $filtroMes) @endif
@@ -63,7 +63,7 @@
     @endif
     <div class="row">
         <!-- Columna del filtro -->
-        <div class="col-md-2">
+        <div class="filtro order-md-2 col-md-2">
             <div class="mb-3">
                 <h4>Listar</h4>
                 <div class="row">
@@ -122,7 +122,7 @@
                                     <input type="hidden" name="anio" value="{{ $filtroAnio }}">
                                     <input type="hidden" name="q" value="{{ $searchTerm }}">
                                     <div style="display: block; margin-bottom: 10px; width: 100%;">
-                                        <button class="btn btn-primary" type="submit">Ejecutar Filtro</button>
+                                        <button class="boton-filtro btn btn-primary" type="submit">Ejecutar Filtro</button>
                                     </div>
                                 </div>
                             </form>
@@ -131,7 +131,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 order-md-1">
             <div class="card-body">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
                     <table id="example1" class="table mt-4 table-hover pt-serif-regular" role="grid" aria-describedby="example1_info">
@@ -268,15 +268,17 @@
         </div>
 
     </div>
-    <div class="d-flex justify-content-center mt-4">
-        {{ $documentos->links('pagination.custom') }}
-    </div>
-    <div class="text-center">
-        @if ($documentos->count() > 1)
-            Mostrando ítems {{ $documentos->firstItem() }}-{{ $documentos->lastItem() }} de {{ $documentos->total() }}
-        @else
-            Mostrando ítem {{ $documentos->firstItem() }} de {{ $documentos->total() }}
-        @endif
+    <div class="paginacion">
+        <div class="d-flex justify-content-center mt-4">
+            {{ $documentos->links('pagination.custom') }}
+        </div>
+        <div class="text-center">
+            @if ($documentos->count() > 1)
+                Mostrando ítems {{ $documentos->firstItem() }}-{{ $documentos->lastItem() }} de {{ $documentos->total() }}
+            @else
+                Mostrando ítem {{ $documentos->firstItem() }} de {{ $documentos->total() }}
+            @endif
+        </div>
     </div>
 </div>
 
