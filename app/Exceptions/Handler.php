@@ -4,6 +4,10 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use BadMethodCallException;
 
 class Handler extends ExceptionHandler
 {
@@ -26,5 +30,21 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof NotFoundHttpException || $exception instanceof BadMethodCallException) {
+            // Si el usuario está autenticado
+            if (Auth::check()) {
+                // Redirige a la página actual (se utiliza `url()->previous()` para obtener la URL anterior)
+                return redirect('/documentos');
+            } else {
+                // Si el usuario no está autenticado, muestra una página 404
+                return response()->view('errors.404', [], 404);
+            }
+        }
+
+        return parent::render($request, $exception);
     }
 }

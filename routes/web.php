@@ -25,17 +25,18 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest')->name('login');
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
 // Rutas de cambio de contraseña
-Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->name('change-password');
-Route::post('/change-password', [AuthController::class, 'changePassword']);
+Route::get('/change-password', [AuthController::class, 'showChangePasswordForm'])->middleware('auth')->name('change-password');
+Route::post('/change-password', [AuthController::class, 'changePassword'])->middleware('auth');
 
 // Rutas de registro (solo para administradores)
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-Route::post('/register', [AuthController::class, 'register']);
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->middleware('auth')->name('register');
+Route::post('/register', [AuthController::class, 'register'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function () {
     // Otras rutas protegidas por autenticación...
@@ -46,7 +47,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/documentos/edit', [DocumentosController::class, 'edit'])->name('documentos.edit');
     // Route::post('documentos', [DocumentosController::class, 'store'])->name('documentos.store');
 
-    Route::resource('documentos', DocumentosController::class);
+    Route::resource('documentos', DocumentosController::class)->middleware('auth');
 
 
 
