@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $user->name = 'Admin ATI San Roman';
         $user->email = 'atisanroman@gmail.com';
         $user->password = 'atisanroman2024';
-        $user->role = 'admin';
+        $user->role = 'Super Admin';
         $user->save();
     }
 }

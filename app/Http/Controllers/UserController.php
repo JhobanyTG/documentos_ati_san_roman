@@ -15,22 +15,22 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->role == 'admin') {
+        if (auth()->user()->role == 'Super Admin') {
             $users = User::all();
             return view('user.index')->with('users', $users);
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else {
             return redirect()->to('/');
         }
     }
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating sa new resource.
      */
     public function create(){
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'Super Admin'){
             return view('auth.register');
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
@@ -55,10 +55,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'Super Admin'){
             $users = User::findOrFail($id);
             return view('user.show', compact('users'));
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
@@ -72,10 +72,10 @@ class UserController extends Controller
     {
 
 
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'Super Admin'){
             $users = User::findOrFail($id);
             return view('user.edit', compact('users'));
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'Super Admin'){
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
@@ -101,7 +101,7 @@ class UserController extends Controller
 
             return redirect()->route('usuarios.index', $users->id)
                     ->with('success', 'Usuario actualizado exitosamente.');
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');
@@ -130,13 +130,13 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->role == 'admin'){
+        if(auth()->user()->role == 'Super Admin'){
             $users = User::findOrFail($id);
             $users->delete();
 
             return redirect()->route('usuarios.index')
             ->with('success', 'El usuario ha sido eliminado exitosamente.');
-        } elseif (auth()->user()->role == 'administrador' || auth()->user()->role == 'coordinador') {
+        } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
         } else{
             return redirect()->to('/');

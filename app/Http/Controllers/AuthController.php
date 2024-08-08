@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function showRegisterForm()
     {
         // Solo permitir el registro si el usuario actual es un administrador
-        if (Auth::check() && Auth::user()->role === 'admin') {
+        if (Auth::check() && Auth::user()->role === 'Super Admin') {
             return view('auth.register');
         } else {
             return redirect()->route('login')->withErrors(['Unauthorized' => 'No tienes permisos para registrar nuevos usuarios']);
@@ -66,7 +66,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'role' => 'required|in:user,admin', // Ajusta los roles según tus necesidades
+            'role' => 'required|in:user,Super Admin', // Ajusta los roles según tus necesidades
         ]);
 
         User::create([
