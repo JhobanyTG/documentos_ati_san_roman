@@ -39,8 +39,8 @@
         </div>
     </div>
 
-<script>
-$(documento).ready(function() {
+    <script>
+$(document).ready(function() {
     @if(Session::has('success'))
         toastr.options = {
             "positionClass": "toast-bottom-right",
