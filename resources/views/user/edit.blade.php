@@ -24,7 +24,7 @@
             <div class="form-group mb-2">
                 <label for="role" class="form-label">Rol:</label>
                 <select class="form-select" name="role" id="role">
-                    <option value="Super Admin" {{ $users->role === 'Super Admin' ? 'selected' : '' }}>Super Admin</option>
+                    <option value="SuperAdmin" {{ $users->role === 'SuperAdmin' ? 'selected' : '' }}>Super Admin</option>
                     <option value="Admin" {{ $users->role === 'Admin' ? 'selected' : '' }}>Admin</option>
                 </select>
             </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DocumentosController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PublicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,16 @@ use App\Http\Controllers\UserController;
 // });
 
 // Rutas de autenticación
-Route::get('/', function () {
-    return redirect()->route('login');
-});
 
+// Route::get('/', function () {
+//     return redirect()->route('publics');
+// });
+
+Route::get('/', [PublicController::class, 'index'])->name('publics.index');
+
+// Route::post('/login', function () {
+//     return view('auth.login');
+// });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->middleware('guest')->name('login');
 Route::post('/login', [AuthController::class, 'login']);

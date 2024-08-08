@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->role == 'Super Admin') {
+        if (auth()->user()->role == 'SuperAdmin') {
             $users = User::all();
             return view('user.index')->with('users', $users);
         } elseif (auth()->user()->role == 'Admin') {
@@ -28,7 +28,7 @@ class UserController extends Controller
      * Show the form for creating sa new resource.
      */
     public function create(){
-        if(auth()->user()->role == 'Super Admin'){
+        if(auth()->user()->role == 'SuperAdmin'){
             return view('auth.register');
         } elseif (auth()->user()->role == 'Admin') {
             return redirect()->to('/documentos');
@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        if(auth()->user()->role == 'Super Admin'){
+        if(auth()->user()->role == 'SuperAdmin'){
             $users = User::findOrFail($id);
             return view('user.show', compact('users'));
         } elseif (auth()->user()->role == 'Admin') {
@@ -72,7 +72,7 @@ class UserController extends Controller
     {
 
 
-        if(auth()->user()->role == 'Super Admin'){
+        if(auth()->user()->role == 'SuperAdmin'){
             $users = User::findOrFail($id);
             return view('user.edit', compact('users'));
         } elseif (auth()->user()->role == 'Admin') {
@@ -87,7 +87,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(auth()->user()->role == 'Super Admin'){
+        if(auth()->user()->role == 'SuperAdmin'){
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
@@ -130,7 +130,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if(auth()->user()->role == 'Super Admin'){
+        if(auth()->user()->role == 'SuperAdmin'){
             $users = User::findOrFail($id);
             $users->delete();
 

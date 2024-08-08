@@ -43,7 +43,7 @@
                         <span class="nav-text">Otros</span>
                     </a>
                 </li> -->
-				@if (auth()->check() && auth()->user()->role === 'Super Admin')
+				@if (auth()->check() && auth()->user()->role === 'SuperAdmin')
 					<li class="nav-item">
 						<a href="{{ url('usuarios') }}">
 							<i class="fa fa-users"></i>
