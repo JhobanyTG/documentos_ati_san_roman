@@ -87,8 +87,59 @@
 			</div>
 		</main>
 	</div>
+	<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.querySelector('.content');
+        
+        // Función para minimizar el sidebar
+        function minimizeSidebar() {
+            sidebar.classList.add('sidebar-closed');
+            content.classList.add('content-closed');
+            localStorage.setItem('sidebarState', 'closed');
+        }
 
-<script>
+        // Función para maximizar el sidebar
+        function maximizeSidebar() {
+            sidebar.classList.remove('sidebar-closed');
+            content.classList.remove('content-closed');
+            localStorage.setItem('sidebarState', 'open');
+        }
+
+        // Listener para el botón de toggle
+        toggleSidebarBtn.addEventListener('click', () => {
+            if (sidebar.classList.contains('sidebar-closed')) {
+                maximizeSidebar();
+            } else {
+                minimizeSidebar();
+            }
+        });
+
+        // Listener para detectar el cambio de tamaño de pantalla
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 600) {
+                minimizeSidebar();
+            } else {
+                maximizeSidebar();
+            }
+        });
+
+        // Recuperar el estado del sidebar desde el localStorage
+        const sidebarState = localStorage.getItem('sidebarState');
+        if (sidebarState === 'closed') {
+            minimizeSidebar();
+        } else {
+            maximizeSidebar();
+        }
+
+        // Si la pantalla es menor a 600px al cargar, minimizar el sidebar
+        if (window.innerWidth <= 600) {
+            minimizeSidebar();
+        }
+    });
+</script>
+<!-- <script>
 	const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
 	const sidebar = document.getElementById('sidebar');
 	const content = document.querySelector('.content');
@@ -126,7 +177,7 @@
 	if (window.innerWidth <= 600) {
 	minimizeSidebar();
 	}
-</script>
+</script> -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
       const changePasswordLink = document.getElementById("change-password-link");
